@@ -1,5 +1,6 @@
+import os
+import sqlite3
 from typing import List
-
 from sqlalchemy import create_engine, Column, Integer, String, DateTime, Engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
@@ -18,7 +19,7 @@ class Email(Base):
     date = Column(DateTime)
 
 
-def get_db_engine(db_url: str = "sqlite:///emails.db") -> Engine:
+def get_db_engine(db_url: str = "sqlite:///email_data.db") -> Engine:
     """
     db helper function to create database engine instance.
     :param db_url:
@@ -33,6 +34,13 @@ def create_tables(engine: Engine):
     :param engine:
     :return:
     """
+    conn = sqlite3.connect('email_data.db')
+    cursor = conn.cursor()
+    cursor.execute('''
+            DROP TABLE IF EXISTS emails
+        ''')
+    cursor.close()
+
     Base.metadata.create_all(engine)
 
 
