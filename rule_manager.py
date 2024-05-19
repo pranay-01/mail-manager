@@ -4,6 +4,10 @@ import sys
 from functools import singledispatch
 from datetime import timedelta, datetime
 from typing import Dict, Union, List
+from jsonschema import validate
+from jsonschema.exceptions import ValidationError
+
+from constants import RULE_SCHEMA
 
 from sqlalchemy import Engine
 
@@ -70,8 +74,13 @@ def apply_rules(rule_file, db_engine: Engine):
             sys.exit(0)
 
         for rule in rules:
-            rule_mgr = RuleManager(rule)
-            rule_mgr.start(db_engine=db_engine)
+            try:
+                validate(instance=rule, schema=RULE_SCHEMA)
+                rule_mgr = RuleManager(rule)
+                rule_mgr.start(db_engine=db_engine)
+            except ValidationError as e:
+                logger.debug("invalid rule schema", e)
+                logger.info(f"validation failed, skipping rule: {rule}")
 
 
 class RuleManager:
