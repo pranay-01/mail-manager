@@ -1,0 +1,8 @@
+
+*.db
+creds.json
+token.json
+*.log
+.idea/*
+__pycache__/*
+*.pyc

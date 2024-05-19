@@ -1,0 +1,1 @@
+ACCESS_SCOPES = ["https://mail.google.com/"]

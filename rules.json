@@ -1,0 +1,20 @@
+[
+  {
+    "predicate": "Any",
+    "conditions": [
+      {
+        "field_name": "from_addr",
+        "predicate": "contains",
+        "value": "sharan"
+      },
+      {
+        "field_name": "message",
+        "predicate": "contains",
+        "value": "shipped"
+      }
+    ],
+    "actions": [
+      "MARK_AS_UNREAD"
+    ]
+  }
+]
