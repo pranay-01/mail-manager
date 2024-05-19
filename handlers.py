@@ -1,4 +1,5 @@
 import logging
+import sys
 from typing import List, Dict, Any
 
 from db import Email, get_db_engine, get_session, create_tables
@@ -51,11 +52,11 @@ def fetch_emails(engine: Engine):
     """
     logger.info("fetching emails...")
 
-    result = Service.users().messages().list(userId="me", maxResults=20).execute()
+    result = Service.users().messages().list(userId="me", maxResults=30).execute()
     messages = result.get("messages")
     if not messages:
         logger.info("no emails found, terminating process...")
-        return
+        sys.exit(0)
 
     message_data = []
     batch = Service.new_batch_http_request()
@@ -72,7 +73,7 @@ def fetch_emails(engine: Engine):
 
     if not message_data:
         logger.info("no emails found, terminating process...")
-        return
+        sys.exit(0)
 
     store_emails(message_data, engine)
 

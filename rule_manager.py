@@ -1,5 +1,6 @@
 import json
 import logging
+import sys
 from functools import singledispatch
 from datetime import timedelta, datetime
 from typing import Dict, Union, List
@@ -66,7 +67,7 @@ def apply_rules(rule_file, db_engine: Engine):
 
         if not rules:
             logger.info("no rules to apply, terminating process...")
-            return
+            sys.exit(0)
 
         for rule in rules:
             rule_mgr = RuleManager(rule)
@@ -96,6 +97,7 @@ class RuleManager:
 
         if not emails:
             logger.info("no records found in db, terminating process...")
+            sys.exit(0)
 
         self.process_rule(emails)
 
