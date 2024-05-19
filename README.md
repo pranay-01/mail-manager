@@ -1,8 +1,8 @@
-# mail-manager
+# Mail-Manager
 
 ## Step 1: Clone the project into your local
 
-## Step 2: Navigate to the root of the project, and install python packages(make sure you have python3.8 or above installed in your local) and run this command:
+## Step 2: Navigate to the root of the project, and install python packages(make sure you have >=python3.10 installed in your local) and run this command:
 
 - "pip install -r requirements.txt"
 
